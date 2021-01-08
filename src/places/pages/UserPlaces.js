@@ -18,7 +18,7 @@ export const DUMMY_PLACES = [
   },
   {
     id: 'p2',
-    title: 'Empire State Building',
+    title: 'Emp. State Building',
     description: 'One of the most famous skyscrapers is the world!',
     imageUrl:
       'https://images.pexels.com/photos/2404843/pexels-photo-2404843.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
