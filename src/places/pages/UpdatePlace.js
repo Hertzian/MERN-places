@@ -7,6 +7,7 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/util/validators'
 import { DUMMY_PLACES } from './UserPlaces'
+import './PlaceForm.css'
 
 const UpdatePlace = () => {
   const placeId = useParams().placeId
@@ -22,13 +23,13 @@ const UpdatePlace = () => {
   }
 
   return (
-    <form>
+    <form className='place-form'>
       <Input
         id='title'
         element='input'
         type='text'
         label='Title'
-        validators={[VALIDATOR_REQUIRE]}
+        validators={[VALIDATOR_REQUIRE()]}
         errorText='Please enter a valid title'
         onInput={() => {}}
         value={identifiedPlace.title}
@@ -44,7 +45,9 @@ const UpdatePlace = () => {
         value={identifiedPlace.title}
         valid={true}
       />
-      <Button type='submit' disabled={true}>Update Place</Button>
+      <Button type='submit' disabled={true}>
+        Update Place
+      </Button>
     </form>
   )
 }
