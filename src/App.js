@@ -25,7 +25,7 @@ const App = () => {
   }, [])
 
   return (
-    <AuthContext.provider
+    <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
@@ -51,7 +51,7 @@ const App = () => {
           </Switch>
         </main>
       </Router>
-    </AuthContext.provider>
+    </AuthContext.Provider>
   )
 }
 
