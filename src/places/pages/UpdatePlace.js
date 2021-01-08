@@ -75,32 +75,35 @@ const UpdatePlace = () => {
   }
 
   return (
-    <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
-      <Input
-        id='title'
-        element='input'
-        type='text'
-        label='Title'
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText='Please enter a valid title'
-        onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
-      />
-      <Input
-        id='description'
-        element='textarea'
-        label='Description'
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText='Please enter a valid description (min. 5 characters).'
-        onInput={inputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
-      />
-      <Button type='submit' disabled={!formState.isValid}>
-        Update Place
-      </Button>
-    </form>
+    <div className='place-form'>
+      <h2>Update {formState.inputs.title.value}</h2>
+      <form onSubmit={placeUpdateSubmitHandler}>
+        <Input
+          id='title'
+          element='input'
+          type='text'
+          label='Title'
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText='Please enter a valid title'
+          onInput={inputHandler}
+          initialValue={formState.inputs.title.value}
+          initialValid={formState.inputs.title.isValid}
+        />
+        <Input
+          id='description'
+          element='textarea'
+          label='Description'
+          validators={[VALIDATOR_MINLENGTH(5)]}
+          errorText='Please enter a valid description (min. 5 characters).'
+          onInput={inputHandler}
+          initialValue={formState.inputs.description.value}
+          initialValid={formState.inputs.description.isValid}
+        />
+        <Button type='submit' disabled={!formState.isValid}>
+          Update Place
+        </Button>
+      </form>
+    </div>
   )
 }
 
