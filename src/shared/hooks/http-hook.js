@@ -6,7 +6,7 @@ export const useHttpClient = () => {
 
   const activeHttpRequest = useRef([])
 
-  const sedRequest = useCallback(
+  const sendRequest = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
       setIsLoading(true)
 
@@ -15,25 +15,29 @@ export const useHttpClient = () => {
 
       try {
         const response = await fetch(url, {
-          method: {
-            method,
-            body,
-            headers,
-            signal: httpAbortCtrl.signal
-          },
+          method,
+          body,
+          headers,
+          signal: httpAbortCtrl.signal,
         })
 
         const responseData = await response.json()
+
+        activeHttpRequest.current = activeHttpRequest.current.filter(
+          (reqCtrl) => reqCtrl !== httpAbortCtrl
+        )
 
         if (!response.ok) {
           throw new Error(responseData.message)
         }
 
+        setIsLoading(false)
         return responseData
       } catch (err) {
         setError(err.message)
+        setIsLoading(false)
+        throw err
       }
-      setIsLoading(false)
     },
     []
   )
@@ -43,10 +47,11 @@ export const useHttpClient = () => {
   }
 
   useEffect(() => {
-    return () => { // cleanup function
-      activeHttpRequest.current.forEach(abortCtrl => abortCtrl.abort())
+    return () => {
+      // cleanup function
+      activeHttpRequest.current.forEach((abortCtrl) => abortCtrl.abort())
     }
-  },[])
+  }, [])
 
-  return { isLoading, error, sedRequest, clearError }
+  return { isLoading, error, sendRequest, clearError }
 }
