@@ -78,6 +78,9 @@ const Auth = () => {
         })
 
         const responseData = await response.json()
+        if(!response.ok){
+          throw new Error(responseData.message)
+        }
         console.log(responseData)
 
         setIsLoading(false)
@@ -92,7 +95,13 @@ const Auth = () => {
     setIsLoading(false)
   }
 
+  const errorHandler = () => {
+    setError(null)
+  }
+
   return (
+    <>
+    <ErrorModal error={error} onClear={errorHandler} />
     <Card className='authentication'>
       {isLoading && <LoadingSpinner asOverlay />}
       <h2>{isLoginMode ? 'Welcome again!' : 'Signup'}</h2>
@@ -135,6 +144,7 @@ const Auth = () => {
         Switch to {isLoginMode ? 'Signup' : 'Login'}
       </Button>
     </Card>
+    </>
   )
 }
 
