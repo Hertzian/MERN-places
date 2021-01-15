@@ -1,6 +1,10 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PlaceList from '../components/PlaceList'
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import { useHttpClient } from '../../shared/hooks/http-hook'
+// import { AuthContext } from '../../shared/context/auth-context'
 
 export const DUMMY_PLACES = [
   {
@@ -32,10 +36,40 @@ export const DUMMY_PLACES = [
 ]
 
 const UserPlaces = () => {
-  const userId = useParams().userId
-  const loadedPlaces = DUMMY_PLACES.filter((place) => place.creator === userId)
+  // const auth = useContext(AuthContext)
+  const [loadedPlaces, setLoadedPlaces] = useState(undefined)
 
-  return <PlaceList items={loadedPlaces}></PlaceList>
+  const { isLoading, error, sendRequest, clearError } = useHttpClient()
+  const userId = useParams().userId
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/places/user/${userId}`
+        )
+
+        setLoadedPlaces(responseData)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchPlaces()
+  }, [sendRequest, userId])
+
+  return (
+    <>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
+        <div className='center'>
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && loadedPlaces && (
+        <PlaceList items={loadedPlaces}></PlaceList>
+      )}
+    </>
+  )
 }
 
 export default UserPlaces
