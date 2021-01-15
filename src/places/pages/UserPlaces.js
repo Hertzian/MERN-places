@@ -19,21 +19,16 @@ const UserPlaces = () => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/places/user/${userId}`
         )
-
-        setLoadedPlaces(responseData)
-      } catch (err) {
-        console.log(err)
-      }
+        setLoadedPlaces(responseData.places)
+      } catch (err) {}
     }
     fetchPlaces()
   }, [sendRequest, userId])
 
   const placeDeletedHandler = (deletedPlaceId) => {
-    console.log('begin: ', deletedPlaceId)
-
-    setLoadedPlaces((prevPlaces) => {
+    setLoadedPlaces((prevPlaces) =>
       prevPlaces.filter((place) => place.id !== deletedPlaceId)
-    })
+    )
   }
 
   return (
@@ -45,10 +40,7 @@ const UserPlaces = () => {
         </div>
       )}
       {!isLoading && loadedPlaces && (
-        <PlaceList
-          items={loadedPlaces}
-          onDeletePlace={placeDeletedHandler}
-        ></PlaceList>
+        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
       )}
     </>
   )

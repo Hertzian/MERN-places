@@ -40,7 +40,7 @@ const PlaceItem = (props) => {
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
-        contentClass='place-item__moda-content'
+        contentClass='place-item__modal-content'
         footerClass='place-item__modal-actions'
         footer={<Button onClick={closeMapHandler}>Close</Button>}
       >
@@ -71,8 +71,8 @@ const PlaceItem = (props) => {
       </Modal>
       <li className='place-item'>
         <Card className='place-item__content'>
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
-            {isLoading && <LoadingSpinner asOverlay />}
             <img src={props.image} alt={props.title} />
           </div>
           <div className='place-item__info'>
