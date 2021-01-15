@@ -8,7 +8,6 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/util/validators'
 import { useForm } from '../../shared/hooks/form-hook'
-import { DUMMY_PLACES } from './UserPlaces'
 import './PlaceForm.css'
 
 const UpdatePlace = () => {
