@@ -17,7 +17,7 @@ const ImageUpload = (props) => {
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result)
     }
-    fileReader.readAsDataURL(file)git 
+    fileReader.readAsDataURL(file)
   }, [file])
 
   const pickedHandler = (event) => {
