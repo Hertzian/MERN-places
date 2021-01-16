@@ -41,7 +41,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
-          image: undefined
+          image: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       )
@@ -55,8 +55,8 @@ const Auth = () => {
           },
           image: {
             value: null,
-            isValid: false
-          }
+            isValid: false,
+          },
         },
         false
       )
@@ -96,7 +96,7 @@ const Auth = () => {
         const responseData = await sendRequest(
           'http://localhost:5000/api/users/signup',
           'POST',
-          formData,
+          formData
           // { 'Content-Type': 'application/json' } // no need for FormData
         )
 
@@ -126,7 +126,14 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
-          {!isLoginMode && <ImageUpload id='image' center onInput={inputHandler} />}
+          {!isLoginMode && (
+            <ImageUpload
+              id='image'
+              center
+              onInput={inputHandler}
+              errorText='Please provide an image'
+            />
+          )}
           <Input
             id='email'
             element='input'

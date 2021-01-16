@@ -17,7 +17,7 @@ import './PlaceForm.css'
 const UpdatePlace = () => {
   const auth = useContext(AuthContext)
   const { isLoading, error, sendRequest, clearError } = useHttpClient()
-  const [loadedPlace, setLoadedPlace] = useState(undefined)
+  const [loadedPlace, setLoadedPlace] = useState()
   const placeId = useParams().placeId
   const history = useHistory()
 
@@ -78,7 +78,9 @@ const UpdatePlace = () => {
       )
 
       history.push(`/${auth.userId}/places`)
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   if (isLoading) {
