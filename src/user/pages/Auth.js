@@ -67,7 +67,7 @@ const Auth = () => {
   const authSubmitHandler = async (event) => {
     event.preventDefault()
 
-    console.log(formState.inputs)
+    // console.log(formState.inputs)
 
     if (isLoginMode) {
       try {
@@ -81,7 +81,7 @@ const Auth = () => {
           { 'Content-Type': 'application/json' }
         )
 
-        auth.login(responseData.user.id)
+        auth.login(responseData.userId, responseData.token)
       } catch (err) {
         console.log(err)
       }
@@ -100,7 +100,7 @@ const Auth = () => {
           // { 'Content-Type': 'application/json' } // no need for FormData
         )
 
-        auth.login(responseData.user.id)
+        auth.login(responseData.userId, responseData.token)
       } catch (err) {
         console.log(err)
       }
