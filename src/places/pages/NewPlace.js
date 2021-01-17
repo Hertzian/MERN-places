@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Input from '../../shared/components/FormElements/Input'
 import Button from '../../shared/components/FormElements/Button'
 import ImageUpload from '../../shared/components/FormElements/ImageUpload'
@@ -34,8 +34,8 @@ const NewPlace = () => {
       },
       image: {
         value: null,
-        isValid: false
-      }
+        isValid: false,
+      },
     },
     false
   )
@@ -52,10 +52,10 @@ const NewPlace = () => {
       formData.append('image', formState.inputs.image.value)
 
       await sendRequest(
-        'http://localhost:5000/api/places',
+        `${process.env.REACT_APP_BACKEND_URL}/places`,
         'POST',
         formData,
-        {Authorization: `Bearer ${auth.token}`}
+        { Authorization: `Bearer ${auth.token}` }
       )
       // redirect user to diferent page
       history.push('/')
@@ -69,7 +69,12 @@ const NewPlace = () => {
         <h2>Add a new place!</h2>
         <form onSubmit={placeSubmitHandler}>
           {isLoading && <LoadingSpinner asOverlay />}
-          <ImageUpload id='image' center onInput={inputHandler} errorText='Please provide an image.' />
+          <ImageUpload
+            id='image'
+            center
+            onInput={inputHandler}
+            errorText='Please provide an image.'
+          />
           <Input
             id='title'
             element='input'
